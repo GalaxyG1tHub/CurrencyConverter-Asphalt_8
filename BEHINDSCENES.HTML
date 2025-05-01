@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Page</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+            
+            body {
+                font-family: Arial, sans-serif;
+                margin: 40px;
+                padding: 20px;
+                line-height: 1.6;
+            }
+            h1, h2 {
+                color: #ffffff;
+            }
+            p {
+                text-align: justify;
+            }
+            .page {
+                page-break-after: always;
+            }
+        
+    </style>
+</head>
+<body>
+    <a href="CURRENCYCONVERSION.HTML.html" class="back-arrow">⬅ Back</a>
+    <h1>ASPHALT 8 CURRENCY CONVERTER: BEHIND THE SCENES</h1>
+    <hr>
+    <h1>BEHIND THE SCENES:</h1>
+        <div class="page">
+            <p>
+            <h2>INTRODUCTION:</h2>
+            </p>
+            <p>
+            Hello! Thank you for using this website, the Asphalt 8 Currency Converter. This was a funny project i thought of, and i wanted to bring it to reality. This website is a little bit of a joke, as you cannot convert currencies in the vanilla game. But, i still wanted to create a simple website to enable everyone to figure out the fact that 1 treasure rush dice is equal to 0.02200 vouchers. So i hope you keep using this fun website, feel free to mess around, and if you have any improvements/bugs you may have found, email me at the email listed at the bottom of the main website. This page is just to serve as a short, but in-depth analysis of the creation and the maths behind this website. Happy Converting! :D
+            </p>
+            <h2>Concept and Creation</h2>
+            <p>
+                The idea behind the Asphalt 8 currency converter was to establish a systematic method for converting between every currency in the racing game Asphalt 8. Given that the game provides multiple currencies for purchases and upgrades, an efficient way to determine exchange values was our idea to design an efficient, quick converter to help you convert between every currency.
+            </p>
+            <p>
+                The project started with extensive data collection, focusing on in-game offers where one currency was offered in exchange for another. By logging these values over time, a trend could be analyzed, forming the basis for conversion rates. Initially, manual logging was necessary, but future iterations may introduce automation.
+            </p>
+            <p>
+                The converter is designed to be user-friendly, allowing players to input any amount in one currency and receive the equivalent values in others. Additional features include a history tracker, enabling users to see past exchange rates to monitor trends. This history sub-page systematically tracks rate fluctuations over time, improving accuracy and decision-making for users.
+            </p>
+            <p>
+                One of the biggest challenges in creating this converter was ensuring accuracy despite the frequent fluctuations in in-game offers. Some offers provide bonus amounts, while others have time-limited multipliers. This required careful averaging and verification to avoid skewed data.
+            </p>
+        </div>
+        
+        <div class="page">
+            <h2>Mathematical Approach</h2>
+            <p>
+                The core mathematical principle behind the currency converter is based on weighted averages. Given the variability in conversion offers, the most accurate representation is achieved by taking the mean of multiple observations. Additionally, outlier detection is used to remove extreme values that could distort results.
+            </p>
+            <p>
+                Suppose we have recorded conversion offers:
+                <br>
+                <em>1 Token = 5000 Coins, 1 Token = 4800 Coins, 1 Token = 5100 Coins</em>
+                <br>
+                The average exchange rate would be:
+                <br>
+                <code>(5000 + 4800 + 5100) / 3 = 4967 Coins per Token</code>
+            </p>
+            <p>
+                However, if a special promotional offer gave 1 Token = 7000 Coins, it would significantly impact the result. To mitigate such anomalies, a weighted averaging approach is used where the most frequent values are prioritized, and extreme outliers have reduced influence.
+            </p>
+            <p>
+                The same principle is applied to Fusion Coins and VIP points, ensuring that the conversion rates remain reflective of actual in-game values. With more data collected monthly, these rates become more refined over time. Advanced statistics such as moving averages and standard deviations help further fine-tune the system.
+            </p>
+            <p>
+                Future enhancements will include automated data input, graphical representations of trends, and possible integration with live in-game data if feasible. A predictive model might also be introduced, allowing users to anticipate future conversion rates based on historical patterns.
+            </p>
+            <p>
+                By combining statistical modeling with user-driven data logging, this currency converter ensures a more informed gaming experience for Asphalt 8 players looking to optimize their in-game currency usage.
+            </p>
+        </div>
+    </body>
+    </html>  
+</body>
+</html>

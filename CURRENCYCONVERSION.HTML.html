@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asphalt 8 Currency Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffffff;
+            color: #000000;
+            transition: background-color 0.3s, color 0.3s;
+            margin: 0;
+            font-size: 16px; /* Adjusted font size */
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .top-bar {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-bar .links {
+            flex-grow: 1;
+           text-align: center;
+        }
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            margin-right: 20px;
+            font-size: 18px;
+        }
+        .top-bar a {
+    position: relative; /* Necessary for the pseudo-element positioning */
+    text-decoration: none;  /* Remove default underline */
+    font-size: 16px; /* Initial font size */
+    transition: font-size 0.5s ease; /* Transition for font size */
+}
+
+.top-bar a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3.5px; /* Thickness of the underline */
+    background: whitesmoke; /* Customize the underline color */
+
+    transition: width 0.5s ease; /* Transition for the underline width */
+}
+
+.top-bar a:hover {
+    font-size: 18.5px; /* Font size increases on hover */
+}
+
+.top-bar a:hover::after {
+    width: 100%; /* Underline expands to full width on hover */
+}
+        .dark-mode-toggle {
+            background: linear-gradient(90deg, rgb(0,0,0), rgb(100,100,100), rgb(200,200,200), rgb(255,255,255));
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .container {
+            max-width: 900px; /* Adjusted max-width */
+            margin: 80px auto 50px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 9, 0.5);
+            background-color: #f9f9f9;
+
+        }
+        .dark-mode .container {
+            background-color: #1e1e1e;
+            box-shadow: rgb(255,255,255)  0 0 15px;
+        }
+        button {
+    padding: 10px 15px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: transform 0.3s ease-in-out;
+}
+        button {
+    box-shadow: rgba(24,32,16,0.6) 0 0 10px;
+}
+
+        button:hover {
+    transform: scale(1.25);
+}
+.dark-mode-toggle {
+    margin-right: 49px;
+}
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background-color: #ffffff;
+        }
+        .dark-mode table {
+            background-color: #282828;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .dark-mode th {
+            background-color: #333;
+        }
+        .versno {
+            color: grey;
+            font-size: 17px;
+        }
+        .versnotitle {
+            color: grey;
+            font-size: 17px;
+        }
+        .emailinquiries {
+            font-size: 19px;
+        }
+        .top-bar {
+    position: relative; /* Ensures dropdown positions correctly */
+}
+
+.top-bar .dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer; /* Makes it clear that it's interactable */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #444;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 9999; /* High enough to be above everything */
+    top: 100%;
+    left: 0;
+    border-radius: 5px;
+    padding: 5px 0;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    transition: background 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #555;
+}
+
+/* Show dropdown when hovering over the title */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.top-bar-title{
+    margin-left: 20px;
+    font-family: calibri, 'Times New Roman';
+    font-size: 25px;
+}
+        .credits-bg {
+            background-color: rgba(255, 204, 0, 0.92); /* Changed opacity to make it more varied than fuel points */
+        }
+        .tokens-bg {
+            background-color: rgba(52, 152, 219, 0.6);
+        }
+        .fusion-coins-bg {
+            background-color: rgba(155, 89, 182, 0.6);
+        }
+        .vouchers-bg {
+            background-color: rgba(149, 165, 166, 0.6);
+        }
+        .vip-coins-bg {
+            background-color: rgba(236, 240, 241, 0.6);
+        }
+        .series-badges-bg {
+            background-color: rgba(61, 27, 222, 0.6);
+        }
+        .fuel-points-bg {
+            background-color: rgba(255,180,30, 0.6);
+        }
+        .gauntlet-badges-bg {
+            background-color: rgba(211,39,35,0.6);
+        }
+        .mileage-coins-bg {
+            background-color: rgba(6,179,218, 0.6);
+        }
+        .car-hunt-coins-bg {
+            background-color: rgba(242,168,53, 0.6);
+        }
+        .treasure-dice-bg {
+            background-color:rgba(66,58,129, 0.6);
+        }
+        .UpdateLog-Color {
+            color: rgb(170, 150, 150);
+        }
+        .UpdateLog-Title {
+            color: rgb(255, 255, 255)
+        }
+        .CODINGGUIDETITLE {
+            size: 60px;
+        }
+
+        .watch-ad-btn {
+    background: linear-gradient(45deg, #f39c12, #f1c40f);
+    color: black;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: transform 0.3s ease-in-out, background 0.3s;
+    box-shadow: rgba(24,32,16,0.6) 0 0 10px;
+}
+
+.watch-ad-btn:hover {
+    transform: scale(1.25);
+    background: linear-gradient(45deg, #f1c40f, #f39c12);
+}
+.line-with-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+    margin: 20px 0;
+}
+
+.line-with-text::before,
+.line-with-text::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px solid #ffffff; /* Solid black line */
+}
+
+.line-with-text:not(:empty)::before {
+    margin-right: 10px;
+}
+
+.line-with-text:not(:empty)::after {
+    margin-left: 10px;
+}
+</style>
+
+
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <span class="dropdown">
+            <div class="top-bar-title">
+            ASPHALT 8 CURRENCY CONVERTER
+            </div>
+            <div class="dropdown-content">
+                <a href="SETTINGS.HTML">Settings Page</a>
+                <a href="CONVERSIONHISTORY.HTML">Conversion History</a>
+                <a href="CLEARCACHE.HTML">Clear Cache</a>
+                <a href="HOWTOUSE.HTML">How To Use</a>
+                <a href="BEHINDSCENES.HTML">Behind The Scenes</a>
+                <div class="line-with-text">Extras</div>
+                <a href="MAINWEBSITE.HTML">Main Website</a>
+                <a href="A9CONVERTER.html">Asphalt 9 Currency Converter</a>
+            </div>
+        </span>
+        <div class="links">
+            <a href="#ratios">Currency Converter</a>
+            <a href="#conversion-table">Conversion Table</a>
+            <a href="#disclaimer">Disclaimers and Notes</a>
+        </div>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Brightness Mode</button>
+    </div>
+    <div>
+        <button class="watch-ad-btn" onclick="watchAd()">🎁 Watch Ad</button>
+    </div>
+    <div class="container" id="ratios">
+        <h1>Asphalt 8 Currency Converter</h1>
+        <hr>
+        <p>Asphalt 8 Currency Converter: Convert between every Asphalt 8 currency!</p>
+        
+        <label for="amount">Enter Amount:</label>
+        <input type="number" id="amount" placeholder="Enter value">
+        <select id="currency">
+            <option value="Tokens">Tokens</option>
+            <option value="Vouchers">Vouchers</option>
+            <option value="Fusion Coins">Fusion Coins</option>
+            <option value="Credits">Credits</option>
+            <option value="VIP Coins">VIP Coins</option>
+            <option value="Series Badges">Series Badges</option>
+            <option value="Fuel Points">Fuel Points</option>
+            <option value="Gauntlet Badges">Gauntlet Badges</option>
+            <option Value="Mileage Coins">Mileage Coins</option>
+            <option value="Car Hunt Coins">Car Hunt Coins</option>
+            <option value="Treasure Rush Dice">Treasure Rush Dice</option>
+        </select>
+        <button onclick="convert()">Convert</button>
+        <h2>Converted Values:</h2>
+        <p id="results"></p>
+    </div>
+    <button onclick="convertAndDownloadCSV()">Convert and Download CSV</button>
+
+    <script>
+        function convertAndDownloadCSV() {
+            // Fetch the amount and the selected currency from the form
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const currency = document.getElementById('currency').value;
+    
+            // Prepare the result rows to be used in the CSV file
+            let csvContent = "Currency,Amount,Converted Currency,Converted Amount\n";
+    
+            // Loop through the exchange rates and calculate conversion
+            for (let key in rates[currency]) {
+                let convertedAmount = (amount * rates[currency][key]).toFixed(2);
+                csvContent += `${currency},${amount},${key},${convertedAmount}\n`;
+            }
+    
+            // Create a Blob with the CSV content
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    
+            // Create a download link
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'currency_conversion.csv');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+ 
+    </script>
+    
+    <div class="container" id="conversion-table">
+        <h2>Exchange Rates:</h2>
+        <table>
+            
+            <thead>
+                <tr>
+                    <th>FROM</th>
+                    <th>TO</th>
+                    <th>1 ____=</th>
+                    <th>RATE</th>
+                    <th>1 ______</th>
+                </tr>
+            </thead>
+            <tbody id="exchangeTable">
+                <!-- Rows will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="discontinued">
+        <h2>Gauntlet Badges</h2>
+    </div>
+    
+    
+    <div class="container" id="disclaimer">
+        <h2>Disclaimers and Notes:</h2>
+        <h3>PLEASE NOTE: THESE RATES CHANGE DEPENDENT ON GAMELOFT CHANGING VALUES, PRICES, AND THEREFORE RATES, THESE ARE NOT LIVE, BUT EFFORT WILL BE GIVEN TO KEEP IT UPDATED REGULARLY:</h3>
+        <h4>CERTAIN RATES CAN'T BE UPDATED, ALTHOUGH THE ONES THAT CAN WILL BE GIVEN ATTENTION TO KEEP AS ACCURATE AS POSSIBLE. THIS MEANS THAT THESE RATES MIGHT NOT BE PERFECTLY ACCURATE.</h4>
+        <h3>PLEASE NOTE: THESE RATES ARE NOT OFFICIAL, AND ARE NOT TO BE USED AS A REFERENCE FOR ANYTHING OTHER THAN A GUIDE</h3>
+        <h3>ALSO NOTE, THIS IS NOT A GAMELOFT OFFICIAL SITE, AND IS NOT AFFILIATED WITH GAMELOFT IN ANY WAY</h3>
+        <section class="container">
+        <h3 class="CODINGGUIDETITLE">COLOR CODING GUIDE:</h3>
+        <p>Yellow = Credits</p>
+        <p>Blue = Tokens</p>
+        <p>Purple = Fusion Coins</p>
+        <p>Grey = Vouchers</p>
+        <p>White = VIP Coins</p>
+        <p>Violet = Series Badges</p>
+        <p>Orange = Fuel Points</p>
+        <p>Red = Gauntlet Badges</p>
+        <p>Dark Blue = Treasure Dice</p>
+        <p>Gold = Car Hunt Coins</p>
+        <p>Light Blue = Mileage Coins</p>
+        </section>
+    </div>
+    
+    <script>
+        // Ensure the conversion rates are updated for all currencies, including Series Badges
+        const rates = {
+    Tokens: { 
+        Tokens: 1, 
+        Vouchers: 0.082, 
+        "Fusion Coins": 5.58, 
+        Credits: 5.58, 
+        "VIP Coins": 10, 
+        "Series Badges": 67.67, 
+        "Fuel Points": 0.273, 
+        "Gauntlet Badges": 0.056, 
+        "Mileage Coins": 0.0002, 
+        "Car Hunt Coins": 1, 
+        "Treasure Rush Dice": 0.00357 
+    },
+    Vouchers: { 
+        Tokens: 12.16, 
+        Vouchers: 1, 
+        "Fusion Coins": 67834.72, 
+        Credits: 67834.72, 
+        "VIP Coins": 20000, 
+        "Series Badges": 5570.00, 
+        "Fuel Points": 3.33, 
+        "Gauntlet Badges": 1000, 
+        "Mileage Coins": 0.016, 
+        "Car Hunt Coins": 120, 
+        "Treasure Rush Dice": 0.00056 
+    },
+    "Fusion Coins": { 
+        Tokens: 0.179, 
+        Vouchers: 0.0000147, 
+        "Fusion Coins": 1, 
+        Credits: 1, 
+        "VIP Coins": 1.79, 
+        "Series Badges": 0.0135, 
+        "Fuel Points": 0.0492, 
+        "Gauntlet Badges": 0.01, 
+        "Mileage Coins": 0.0002, 
+        "Car Hunt Coins": 0.18, 
+        "Treasure Rush Dice": 0.0000061 
+    },
+    Credits: { 
+        Tokens: 0.179, 
+        Vouchers: 0.0000147, 
+        "Fusion Coins": 1, 
+        Credits: 1, 
+        "VIP Coins": 1.79, 
+        "Series Badges": 0.0135, 
+        "Fuel Points": 0.0492, 
+        "Gauntlet Badges": 0.01, 
+        "Mileage Coins": 0.0002, 
+        "Car Hunt Coins": 0.18, 
+        "Treasure Rush Dice": 0.0000061 
+    },
+    "VIP Coins": { 
+        Tokens: 0.1, 
+        Vouchers: 0.00005, 
+        "Fusion Coins": 0.558, 
+        Credits: 0.558, 
+        "VIP Coins": 1, 
+        "Series Badges": 0.085, 
+        "Fuel Points": 0.0274, 
+        "Gauntlet Badges": 0.0056, 
+        "Mileage Coins": 0.00018, 
+        "Car Hunt Coins": 0.2, 
+        "Treasure Rush Dice": 0.0000071 
+    },
+    "Series Badges": { 
+        Tokens: 0.01475, 
+        Vouchers: 0.00121, 
+        "Fusion Coins": 0.00264, 
+        Credits: 0.00264, 
+        "VIP Coins": 0.1475, 
+        "Series Badges": 1, 
+        "Fuel Points": 0.0041, 
+        "Gauntlet Badges": 0.74, 
+        "Mileage Coins": 0.00012, 
+        "Car Hunt Coins": 0.9, 
+        "Treasure Rush Dice": 0.000015 
+    },
+    "Fuel Points": { 
+        Tokens: 3.64, 
+        Vouchers: 0.30, 
+        "Fusion Coins": 20.31, 
+        Credits: 20.31, 
+        "VIP Coins": 36.4, 
+        "Series Badges": 246.32, 
+        "Fuel Points": 1, 
+        "Gauntlet Badges": 0.20, 
+        "Mileage Coins": 0.004, 
+        "Car Hunt Coins": 3.6, 
+        "Treasure Rush Dice": 0.000071 
+    },
+    "Gauntlet Badges": { 
+        Tokens: 17.90, 
+        Vouchers: 0.001, 
+        "Fusion Coins": 100, 
+        Credits: 100, 
+        "VIP Coins": 179, 
+        "Series Badges": 1.35, 
+        "Fuel Points": 4.92, 
+        "Gauntlet Badges": 1, 
+        "Mileage Coins": 0.18, 
+        "Car Hunt Coins": 179, 
+        "Treasure Rush Dice": 0.00357 
+    },
+    "Mileage Coins": { 
+        Tokens: 5000, 
+        Vouchers: 0.00016, 
+        "Fusion Coins": 5000, 
+        Credits: 5000, 
+        "VIP Coins": 500, 
+        "Series Badges": 250, 
+        "Fuel Points": 5, 
+        "Gauntlet Badges": 100, 
+        "Mileage Coins": 1, 
+        "Car Hunt Coins": 1000, 
+        "Treasure Rush Dice": 0.00002 
+    },
+    "Car Hunt Coins": { 
+        Tokens: 1, 
+        Vouchers: 0.0083, 
+        "Fusion Coins": 0.18, 
+        Credits: 0.18, 
+        "VIP Coins": 0.2, 
+        "Series Badges": 0.9, 
+        "Fuel Points": 0.18, 
+        "Gauntlet Badges": 0.0056, 
+        "Mileage Coins": 0.001, 
+        "Car Hunt Coins": 1, 
+        "Treasure Rush Dice": 0.000012 
+    },
+    "Treasure Rush Dice": { 
+        Tokens: 280, 
+        Vouchers: 0.022, 
+        "Fusion Coins": 0.28, 
+        Credits: 0.28, 
+        "VIP Coins": 0.28, 
+        "Series Badges": 1, 
+        "Fuel Points": 0.007, 
+        "Gauntlet Badges": 0.0028, 
+        "Mileage Coins": 0.0002, 
+        "Car Hunt Coins": 0.28, 
+        "Treasure Rush Dice": 1 
+    }
+};
+
+
+    
+        function convert() {
+            let amount = parseFloat(document.getElementById("amount").value);
+            let currency = document.getElementById("currency").value;
+            let resultText = "";
+            
+            // Add conversion for Series Badges
+            for (let key in rates[currency]) {
+                resultText += `${amount} ${currency} = ${(amount * rates[currency][key]).toFixed(2)} ${key}<br>`;
+            }
+            
+            document.getElementById("results").innerHTML = resultText;
+        }
+        
+        function populateExchangeTable() {
+            let tableBody = document.getElementById("exchangeTable");
+            tableBody.innerHTML = "";
+            
+            // Loop through the rates object to populate the table
+            for (let from in rates) {
+                for (let to in rates[from]) {
+                    let rate = rates[from][to];
+                    let formattedRate = rate >= 1 ? rate.toLocaleString() : rate.toFixed(5);
+    
+                    let fromClass = '';
+                    let toClass = '';
+                    let equalClass = '';
+                    
+                    switch(from) {
+                        case 'Credits': fromClass = 'credits-bg'; equalClass = 'credits-bg'; break;
+                        case 'Tokens': fromClass = 'tokens-bg'; equalClass = 'tokens-bg'; break;
+                        case 'Fusion Coins': fromClass = 'fusion-coins-bg'; equalClass = 'fusion-coins-bg'; break;
+                        case 'Vouchers': fromClass = 'vouchers-bg'; equalClass = 'vouchers-bg'; break;
+                        case 'VIP Coins': fromClass = 'vip-coins-bg'; equalClass = 'vip-coins-bg'; break;
+                        case 'Series Badges': fromClass = 'series-badges-bg'; equalClass = 'series-badges-bg'; break;
+                        case 'Fuel Points': fromClass = 'fuel-points-bg'; equalClass = 'fuel-points-bg'; break;
+                        case 'Gauntlet Badges': fromClass = 'gauntlet-badges-bg'; equalClass = 'gauntlet-badges-bg'; break;
+                        case 'Mileage Coins': fromClass = 'mileage-coins-bg'; equalClass = 'mileage-coins-bg'; break;
+                        case 'Car Hunt Coins': fromClass = 'car-hunt-coins-bg'; equalClass = 'car-hunt-coins-bg'; break;
+                        case 'Treasure Rush Dice': fromClass = 'treasure-dice-bg'; equalClass = 'treasure-dice-bg'; break;
+                    }
+    
+                    switch(to) {
+                        case 'Credits': toClass = 'credits-bg'; break;
+                        case 'Tokens': toClass = 'tokens-bg'; break;
+                        case 'Fusion Coins': toClass = 'fusion-coins-bg'; break;
+                        case 'Vouchers': toClass = 'vouchers-bg'; break;
+                        case 'VIP Coins': toClass = 'vip-coins-bg'; break;
+                        case 'Series Badges': toClass = 'series-badges-bg'; break;
+                        case 'Fuel Points': toClass = 'fuel-points-bg'; break;
+                        case 'Gauntlet Badges': toClass = 'gauntlet-badges-bg'; break;
+                        case 'Mileage Coins': toClass = 'mileage-coins-bg'; break;
+                        case 'Car Hunt Coins': toClass = 'car-hunt-coins-bg'; break;
+                        case 'Treasure Rush Dice': toClass = 'treasure-dice-bg'; break;
+                         // Ensure this case is present
+                    }
+    
+                    // Add the conversion row in the table
+                    let row = `
+                        <tr>
+                            <td class="${fromClass}">${from}</td>
+                            <td class="${toClass}">${to}</td>
+                            <td class="${equalClass}">1 ${from}=</td>
+                            <td>${formattedRate}</td>
+                            <td class="${toClass}">${to}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                }
+            }
+        }
+    
+        // Initial population of the exchange rates table
+        window.onload = populateExchangeTable;
+
+
+        function toggleDarkMode() {
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+    
+    // Save the state of dark mode to localStorage
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('dark-mode', 'enabled');
+    } else {
+        localStorage.setItem('dark-mode', 'disabled');
+    }
+}
+
+// Check if dark mode was previously enabled and apply it on page load
+if (localStorage.getItem('dark-mode') === 'enabled') {
+    toggleDarkMode();
+}
+document.addEventListener("DOMContentLoaded"), function () {
+            const gauntletElements = document.querySelectorAll(".gauntlet");
+
+            // Read setting from local storage
+            const showDiscontinued = localStorage.getItem("showDiscontinuedCurrencies") === "true";
+
+            if (!showDiscontinued) {
+                gauntletElements.forEach(el => el.classList.add("hidden"));
+            }}
+
+            document.addEventListener("DOMContentLoaded", function () {
+    const showDiscontinued = localStorage.getItem("showDiscontinuedCurrencies") === "true";
+    const discontinuedElements = document.querySelectorAll(".discontinued");
+
+    if (showDiscontinued) {
+        discontinuedElements.forEach(el => el.style.display = "block");
+    }
+});
+    </script>
+    <section class="container">
+    <h3 class="emailinquiries">FOR IDEAS OR CONCERNS, PLEASE CONTACT: A8CURRENCYCONVERTER@outlook.com</h3>
+<h4 class="versno">VERSION: 2.2.2</h4>
+</section>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const showDiscontinued = localStorage.getItem("showDiscontinuedCurrencies") === "true";
+        const discontinuedElements = document.querySelectorAll(".discontinued");
+
+        discontinuedElements.forEach(el => {
+            el.style.display = showDiscontinued ? "block" : "none";
+        });
+    });
+</script>
+<section>
+    <section class="container">
+        <h2>UPDATE LOG:</h2>
+        <section class="UpdateLog-Color">
+        <h4>VERS 3.0.1: ADDED ASPHALT 9 CURRENCY CONVERTER</h4>   
+        <h4>VERS 2.2.2: REVISED CURRENCY CONVERSION HISTORY SUB-PAGE</h4>
+        <h4>VERS 2.2.1: UPDATE LOG STARTED</h4>
+        </section>
+    </section>
+</section>
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+
+    function watchAd() {
+        alert("Thanks for watching the ad! You earned 10 AD-TOKENS.");
+        // You can integrate actual ad-watching reward logic here later
+    }
+</script>
+</body>
+</html>
